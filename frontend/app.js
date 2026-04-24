@@ -14,6 +14,8 @@ const state = {
 const nodes = {
   productGrid: document.getElementById('productGrid'),
   spotlightGrid: document.getElementById('spotlightGrid'),
+  spotlightPrev: document.getElementById('spotlightPrev'),
+  spotlightNext: document.getElementById('spotlightNext'),
   searchInput: document.getElementById('searchInput'),
   cropFilter: document.getElementById('cropFilter'),
   sortFilter: document.getElementById('sortFilter'),
@@ -253,6 +255,19 @@ function applyQuickCropFilter(crop) {
   if (!nodes.cropFilter) return;
   nodes.cropFilter.value = crop;
   renderProducts();
+}
+
+function bindSpotlightControls() {
+  if (!nodes.spotlightGrid || !nodes.spotlightPrev || !nodes.spotlightNext) return;
+
+  const scrollByCard = (direction) => {
+    const firstCard = nodes.spotlightGrid.querySelector('.spotlight-card');
+    const distance = firstCard ? firstCard.getBoundingClientRect().width + 12 : 320;
+    nodes.spotlightGrid.scrollBy({ left: direction * distance, behavior: 'smooth' });
+  };
+
+  nodes.spotlightPrev.addEventListener('click', () => scrollByCard(-1));
+  nodes.spotlightNext.addEventListener('click', () => scrollByCard(1));
 }
 
 function addToCart(productId) {
@@ -643,6 +658,7 @@ function bindEvents() {
 
 async function init() {
   addMessage('Xin chao, toi co the goi y phan bon theo cay trong va muc tieu nang suat.', 'bot');
+  bindSpotlightControls();
   bindEvents();
   await loadProducts();
   renderCart();

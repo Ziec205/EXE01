@@ -270,6 +270,29 @@ body {
   gap: 12px;
 }
 
+.spotlight-toolbar {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.spotlight-hint {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.spotlight-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.spotlight-controls .btn {
+  min-width: 40px;
+  padding-inline: 0;
+}
+
 .spotlight-card {
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -802,6 +825,26 @@ select {
 
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  .spotlight-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .spotlight-grid {
+    grid-template-columns: none;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .spotlight-card {
+    min-width: 84%;
+    flex: 0 0 84%;
+    scroll-snap-align: start;
   }
 
   .topbar-inner {
