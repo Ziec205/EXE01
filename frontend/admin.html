@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thatrico Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .admin-shell {
+      padding: 24px 0 40px;
+    }
+
+    .admin-banner {
+      border-radius: 24px;
+      padding: 24px;
+      background: linear-gradient(120deg, rgba(21, 49, 29, 0.92), rgba(47, 111, 62, 0.82)), url("Picture/phanbonHomePage.jpg") center/cover no-repeat;
+      color: #fff;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .admin-banner h1 {
+      margin: 0 0 8px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .admin-grid {
+      margin-top: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .admin-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: 0 8px 16px rgba(20, 42, 25, 0.08);
+      padding: 16px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #e0e8d8;
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .field-row {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .status-pill {
+      display: inline-flex;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e9f1dd;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .muted-box {
+      padding: 10px;
+      border-radius: 12px;
+      background: #f6f9ef;
+      border: 1px solid #d8e2ca;
+    }
+
+    @media (max-width: 720px) {
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">T</span>
+        <span class="logo-text">
+          Thatrico Admin
+          <small>Quan ly don hang va nghiep vu</small>
+        </span>
+      </a>
+      <nav class="top-actions">
+        <button id="goHomeBtn" class="btn btn-ghost">Ve trang ban hang</button>
+        <button id="logoutBtn" class="btn btn-primary">Dang xuat</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin-shell">
+    <section class="admin-banner">
+      <p class="eyebrow">Khu vuc quan tri Thatrico</p>
+      <h1>Quan ly don hang, ton kho, san pham va tai khoan</h1>
+      <p>Trang nay chi dung cho tai khoan admin sau khi dang nhap tu popup o trang ban hang.</p>
+    </section>
+
+    <section id="adminGate" class="admin-panel" style="margin-top:18px;">
+      <h2>Truy cap dashboard</h2>
+      <p class="muted">Neu ban la admin, hay dang nhap o trang ban hang bang tai khoan <strong>admin</strong> va mat khau <strong>123</strong>. Sau do trang nay se mo dashboard tu dong.</p>
+      <div class="inline-actions">
+        <button id="goHomeBtnInline" class="btn btn-primary" type="button">Ve trang ban hang</button>
+        <button id="refreshAdminBtn" class="btn btn-ghost" type="button">Tai lai trang</button>
+      </div>
+    </section>
+
+    <section id="adminApp" class="admin-grid hidden">
+      <div class="stats">
+        <div class="stat"><span>Doanh thu hoan tat</span><strong id="metricRevenue">0d</strong></div>
+        <div class="stat"><span>Tong don hang</span><strong id="metricOrders">0</strong></div>
+        <div class="stat"><span>San pham</span><strong id="metricProducts">0</strong></div>
+        <div class="stat"><span>Khach hang</span><strong id="metricCustomers">0</strong></div>
+        <div class="stat"><span>Ton kho</span><strong id="metricStock">0</strong></div>
+      </div>
+
+      <section class="admin-panel">
+        <div class="panel-head">
+          <h3>Don hang</h3>
+          <p>Cap nhat trang thai va dieu chinh nghiep vu xu ly</p>
+        </div>
+        <div id="ordersTable" class="table-wrap"></div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-head">
+          <h3>San pham va ton kho</h3>
+          <p>Them moi, chinh sua gia, ton kho va cong dung san pham</p>
+        </div>
+        <form id="productForm" class="checkout-form">
+          <div class="field-row">
+            <input id="productName" type="text" placeholder="Ten san pham" required />
+            <input id="productPrice" type="number" placeholder="Gia" required />
+          </div>
+          <div class="field-row">
+            <input id="productCrop" type="text" placeholder="Nhom cay trong" required />
+            <input id="productStock" type="number" placeholder="Ton kho" required />
+          </div>
+          <div class="field-row">
+            <input id="productBenefit" type="text" placeholder="Cong dung" required />
+            <input id="productIcon" type="text" placeholder="Bieu tuong" value="🌿" />
+          </div>
+          <button class="btn btn-secondary" type="submit">Them san pham</button>
+        </form>
+        <div id="productsTable" class="table-wrap" style="margin-top:14px;"></div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-head">
+          <h3>Tai khoan</h3>
+          <p>Quan sat phan chia admin / user</p>
+        </div>
+        <div id="usersTable" class="table-wrap"></div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-head">
+          <h3>Nghiep vu thong minh</h3>
+        </div>
+        <div class="muted-box">
+          <ul class="support-list">
+            <li>Tu dong ghi nhan so luong da chon va ton kho con lai tren backend.</li>
+            <li>Don hang duoc luu server-side va co the cap nhat trang thai ngay tren dashboard.</li>
+            <li>Admin login dung token rieng, khong chung voi user.</li>
+          </ul>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

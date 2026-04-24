@@ -1,0 +1,17 @@
+com\thatrico\service\DataStore.class
+com\thatrico\config\WebConfig.class
+com\thatrico\service\DataStore$Product.class
+com\thatrico\service\AppService.class
+com\thatrico\service\TokenService.class
+com\thatrico\controller\CustomErrorController.class
+com\thatrico\controller\ApiController.class
+com\thatrico\service\DataStore$Db.class
+com\thatrico\service\AppService$QuoteResult.class
+com\thatrico\service\MailService.class
+com\thatrico\service\AppService$CustomerPayload.class
+com\thatrico\service\DataStore$User.class
+com\thatrico\service\DataStore$OrderItem.class
+com\thatrico\service\DataStore$Order.class
+com\thatrico\service\DataStore$PendingRegistration.class
+com\thatrico\ThatricoBackendApplication.class
+com\thatrico\service\TokenService$1.class

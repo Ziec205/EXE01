@@ -1,0 +1,63 @@
+{
+  "users" : [ {
+    "id" : "1",
+    "name" : "admin",
+    "email" : "admin@thatrico.vn",
+    "phone" : "admin",
+    "passwordHash" : "$2a$10$Fs2SRbKFRllDkjVIsgIggewpketBejNkIDFWEVWx2X.GJC8o5Sgt.",
+    "role" : "admin",
+    "verified" : true,
+    "createdAt" : "2026-04-24T10:24:39.304936900Z"
+  } ],
+  "pendingRegistrations" : [ ],
+  "products" : [ {
+    "id" : "1",
+    "name" : "NPK 20-20-15 Chuyen lua",
+    "price" : 320000,
+    "crop" : "lua",
+    "benefit" : "Tang de nhanh va phat trien than la",
+    "icon" : "\uD83C\uDF3E",
+    "stock" : 120
+  }, {
+    "id" : "2",
+    "name" : "Huu co vi sinh BioGrow",
+    "price" : 275000,
+    "crop" : "rau",
+    "benefit" : "Cai tao dat, tang do mui",
+    "icon" : "\uD83E\uDD6C",
+    "stock" : 90
+  }, {
+    "id" : "3",
+    "name" : "Kali K60 nang chat",
+    "price" : 355000,
+    "crop" : "cay-an-trai",
+    "benefit" : "Tang do ngot, dep mau trai",
+    "icon" : "\uD83C\uDF4A",
+    "stock" : 80
+  }, {
+    "id" : "4",
+    "name" : "Trung vi luong Cafe Plus",
+    "price" : 410000,
+    "crop" : "cafe",
+    "benefit" : "Giam vang la, phuc hoi re",
+    "icon" : "☕",
+    "stock" : 75
+  }, {
+    "id" : "5",
+    "name" : "NPK Giai doan dong",
+    "price" : 295000,
+    "crop" : "lua",
+    "benefit" : "Tang chac hat, giam lem lep",
+    "icon" : "\uD83C\uDF31",
+    "stock" : 110
+  }, {
+    "id" : "6",
+    "name" : "Canxi-Bo Chong rung trai",
+    "price" : 260000,
+    "crop" : "cay-an-trai",
+    "benefit" : "Han che rung hoa va trai non",
+    "icon" : "\uD83C\uDF4B",
+    "stock" : 95
+  } ],
+  "orders" : [ ]
+}

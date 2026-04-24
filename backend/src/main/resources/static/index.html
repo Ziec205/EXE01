@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thatrico - Phân bón thông minh cho nông dân</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="#">
+        <span class="logo-mark">A</span>
+        <span class="logo-text">
+          Thatrico
+          <small>Chuyen doi so kinh doanh phan bon</small>
+        </span>
+      </a>
+      <nav class="top-actions">
+        <button id="authBtn" class="btn btn-ghost">Dang nhap</button>
+        <button id="openCart" class="btn btn-primary">Gio hang (<span id="cartCount">0</span>)</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-overlay">
+        <div class="hero-copy">
+          <p class="eyebrow">Thatrico | Ban phan bon va tu van nong nghiep thong minh</p>
+          <h1>Phan bon Thatrico - chuyen doi so cho canh tac hieu qua, ben vung va dung ky thuat</h1>
+          <p class="hero-desc">
+            Noi lam viec tap trung cho khach hang, dai ly va nong dan: dat hang nhanh, chat tu van,
+            theo doi don, va goi y san pham theo cay trong va mua vu.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-secondary" data-scroll="#catalog">Mua san pham</button>
+            <button class="btn btn-ghost" id="openChatFromHero">Mo chat tu van</button>
+          </div>
+          <div class="hero-metrics">
+            <article class="kpi-card">
+              <strong>+21%</strong>
+              <span>Ty le chot don sau khi tu van chat</span>
+            </article>
+            <article class="kpi-card">
+              <strong>8 phut</strong>
+              <span>Thoi gian phan hoi trung binh</span>
+            </article>
+            <article class="kpi-card">
+              <strong>7 buoc</strong>
+              <span>Quy trinh xu ly don chuan hoa</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features container">
+      <h2>Chuc nang ho tro them</h2>
+      <div class="feature-grid">
+        <div class="feature-item">Goi y san pham theo cay trong va giai doan</div>
+        <div class="feature-item">Tinh luong su dung theo dien tich canh tac</div>
+        <div class="feature-item">Nhac mua lai theo mua vu</div>
+        <div class="feature-item">Bao cao doanh thu va san pham ban chay</div>
+      </div>
+    </section>
+
+    <section id="catalog" class="container catalog-wrap">
+      <h2>Danh muc san pham</h2>
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Tim ten san pham hoac cong dung..." />
+        <select id="cropFilter">
+          <option value="all">Tat ca cay trong</option>
+          <option value="lua">Lua</option>
+          <option value="cafe">Ca phe</option>
+          <option value="rau">Rau mau</option>
+          <option value="cay-an-trai">Cay an trai</option>
+        </select>
+        <select id="sortFilter">
+          <option value="default">Sap xep mac dinh</option>
+          <option value="priceAsc">Gia tang dan</option>
+          <option value="priceDesc">Gia giam dan</option>
+        </select>
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section class="container flow-layout">
+      <article class="panel">
+        <div class="panel-head">
+          <h3>Gio hang</h3>
+          <p>Khach hang chon san pham, dieu chinh so luong, dat hang</p>
+        </div>
+        <div id="cartItems" class="list"></div>
+        <div id="cartQuoteInfo" class="muted cart-quote"></div>
+        <div class="panel-foot">
+          <strong>Tong: <span id="cartTotal">0d</span></strong>
+          <button id="checkoutBtn" class="btn btn-primary">Chuyen den thanh toan</button>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h3>Thong tin dat hang</h3>
+          <p>Nhap thong tin va xac nhan don hang</p>
+        </div>
+        <form id="orderForm" class="checkout-form">
+          <input id="customerName" type="text" placeholder="Ho ten" required />
+          <input id="customerPhone" type="tel" placeholder="So dien thoai" required />
+          <input id="customerArea" type="text" placeholder="Dien tich canh tac (ha)" />
+          <textarea id="customerAddress" rows="3" placeholder="Dia chi giao hang" required></textarea>
+          <select id="paymentMethod">
+            <option value="COD">Thanh toan khi nhan hang</option>
+            <option value="Bank">Chuyen khoan ngan hang</option>
+          </select>
+          <button type="submit" class="btn btn-secondary">Xac nhan dat hang</button>
+        </form>
+      </article>
+    </section>
+  </main>
+
+  <button id="chatToggle" class="chat-toggle" aria-label="Mo chat">Chat</button>
+
+  <section id="chatBox" class="chatbox hidden" aria-label="Khung chat tu van">
+    <div class="chat-head">Tro ly nong nghiep</div>
+    <div id="chatLog" class="chat-log"></div>
+    <div class="quick-ask">
+      <button class="chip" data-question="Toi trong lua, can tang de nhanh">Lua can tang de nhanh</button>
+      <button class="chip" data-question="Ca phe bi vang la thi dung gi">Ca phe vang la</button>
+      <button class="chip" data-question="Goi y combo cho rau an la">Combo rau mau</button>
+    </div>
+    <form id="chatForm" class="chat-input">
+      <input id="chatInput" type="text" placeholder="Nhap cau hoi cua ban..." />
+      <button class="btn btn-primary" type="submit">Gui</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <div class="container">Thatrico Demo - Website ban phan bon cho du an khoi nghiep EXE</div>
+  </footer>
+
+  <div id="authModal" class="auth-modal hidden" aria-hidden="true">
+    <div class="auth-modal-backdrop" data-auth-close></div>
+    <section class="auth-modal-panel" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+      <button class="auth-modal-close" type="button" data-auth-close aria-label="Dong popup">&times;</button>
+      <div class="auth-modal-header">
+        <p class="eyebrow">Tai khoan Thatrico</p>
+        <h2 id="authModalTitle">Dang nhap hoac dang ky</h2>
+        <p>Dang nhap chi can so dien thoai / email va mat khau. Dang ky bang Gmail + OTP va co them so dien thoai de ho tro dang nhap.</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="btn btn-ghost auth-tab active" type="button" data-auth-tab="login">Dang nhap</button>
+        <button class="btn btn-ghost auth-tab" type="button" data-auth-tab="register">Dang ky</button>
+      </div>
+
+      <div class="auth-panels">
+        <form id="loginForm" class="checkout-form auth-panel active" data-auth-panel="login">
+          <input id="loginIdentifier" type="text" placeholder="So dien thoai / Email" required />
+          <input id="loginPassword" type="password" placeholder="Mat khau" required />
+          <button type="submit" class="btn btn-primary">Dang nhap</button>
+        </form>
+
+        <form id="registerForm" class="checkout-form auth-panel hidden" data-auth-panel="register">
+          <input id="registerName" type="text" placeholder="Ten tai khoan" required />
+          <input id="registerPhone" type="tel" placeholder="So dien thoai" required />
+          <input id="registerEmail" type="email" placeholder="Email Gmail" required />
+          <input id="registerPassword" type="password" placeholder="Mat khau toi thieu 6 ky tu" required />
+          <button type="button" id="requestOtpBtn" class="btn btn-secondary">Gui OTP</button>
+          <div id="otpBlock" class="hidden">
+            <input id="registerOtp" type="text" inputmode="numeric" placeholder="Nhap ma OTP" />
+            <button type="submit" class="btn btn-primary">Xac thuc va tao tai khoan</button>
+          </div>
+        </form>
+
+        <div id="authStatus" class="auth-status muted"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
