@@ -13,6 +13,7 @@ const state = {
 
 const nodes = {
   productGrid: document.getElementById('productGrid'),
+  spotlightGrid: document.getElementById('spotlightGrid'),
   searchInput: document.getElementById('searchInput'),
   cropFilter: document.getElementById('cropFilter'),
   sortFilter: document.getElementById('sortFilter'),
@@ -43,6 +44,7 @@ const nodes = {
   requestOtpBtn: document.getElementById('requestOtpBtn'),
   otpBlock: document.getElementById('otpBlock'),
   registerOtp: document.getElementById('registerOtp'),
+  openCart: document.getElementById('openCart'),
   checkoutBtn: document.getElementById('checkoutBtn'),
   chatToggle: document.getElementById('chatToggle'),
   chatBox: document.getElementById('chatBox'),
@@ -50,7 +52,9 @@ const nodes = {
   chatForm: document.getElementById('chatForm'),
   chatInput: document.getElementById('chatInput'),
   chips: document.querySelectorAll('.chip'),
-  openChatFromHero: document.getElementById('openChatFromHero')
+  openChatFromHero: document.getElementById('openChatFromHero'),
+  scrollButtons: document.querySelectorAll('[data-scroll]'),
+  quickCropButtons: document.querySelectorAll('[data-quick-crop]')
 };
 
 function loadJson(key, fallback) {
@@ -207,6 +211,48 @@ function renderProducts() {
   nodes.productGrid.querySelectorAll('[data-add]').forEach((button) => {
     button.addEventListener('click', () => addToCart(button.dataset.add));
   });
+}
+
+function renderSpotlightProducts() {
+  if (!nodes.spotlightGrid) return;
+
+  const spotlight = [...state.products]
+    .filter((product) => Number(product.stock || 0) > 0)
+    .sort((a, b) => Number(b.stock || 0) - Number(a.stock || 0))
+    .slice(0, 4);
+
+  if (!spotlight.length) {
+    nodes.spotlightGrid.innerHTML = '<div class="muted">San pham noi bat se xuat hien khi co ton kho.</div>';
+    return;
+  }
+
+  nodes.spotlightGrid.innerHTML = spotlight
+    .map((product) => `
+      <article class="spotlight-card">
+        <div class="spotlight-top">
+          <span class="spotlight-icon">${product.icon || '🌿'}</span>
+          <span class="stock-pill">Con ${product.stock}</span>
+        </div>
+        <strong>${product.name}</strong>
+        <div class="muted">${cropLabel(product.crop)} | ${product.benefit}</div>
+        <div class="price">${toVnd(product.price)}</div>
+        <button class="btn btn-primary" data-spotlight-add="${product.id}">Mua nhanh</button>
+      </article>
+    `)
+    .join('');
+
+  nodes.spotlightGrid.querySelectorAll('[data-spotlight-add]').forEach((button) => {
+    button.addEventListener('click', () => {
+      addToCart(button.dataset.spotlightAdd);
+      scrollToSection('.flow-layout');
+    });
+  });
+}
+
+function applyQuickCropFilter(crop) {
+  if (!nodes.cropFilter) return;
+  nodes.cropFilter.value = crop;
+  renderProducts();
 }
 
 function addToCart(productId) {
@@ -372,6 +418,7 @@ async function loadProducts() {
 
   state.products = result.products || [];
   renderProducts();
+  renderSpotlightProducts();
 }
 
 async function placeOrder(event) {
@@ -550,7 +597,23 @@ function bindEvents() {
   nodes.checkoutBtn.addEventListener('click', () => {
     nodes.orderForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+  if (nodes.openCart) {
+    nodes.openCart.addEventListener('click', () => {
+      scrollToSection('.flow-layout');
+    });
+  }
   nodes.authBtn.addEventListener('click', () => openAuthModal('login'));
+  nodes.scrollButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.scroll;
+      if (target) scrollToSection(target);
+    });
+  });
+  nodes.quickCropButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      applyQuickCropFilter(button.dataset.quickCrop || 'all');
+    });
+  });
   nodes.authTabButtons.forEach((button) => {
     button.addEventListener('click', () => switchAuthTab(button.dataset.authTab));
   });

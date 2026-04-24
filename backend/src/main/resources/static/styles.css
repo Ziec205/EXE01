@@ -209,6 +209,103 @@ body {
   margin-top: 28px;
 }
 
+.category-showcase,
+.spotlight-wrap {
+  margin-top: 28px;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.section-head p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.category-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.category-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px;
+  background: linear-gradient(140deg, #ffffff, #f4f8ed);
+  text-align: left;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(28, 48, 32, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  border-color: #96b383;
+  box-shadow: 0 14px 26px rgba(28, 48, 32, 0.13);
+}
+
+.category-icon {
+  font-size: 24px;
+}
+
+.category-card strong {
+  font-size: 16px;
+}
+
+.category-card small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.spotlight-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.spotlight-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 10px 18px rgba(25, 41, 25, 0.08);
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.spotlight-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.spotlight-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #deead2, #f8edd8);
+  font-size: 23px;
+}
+
+.stock-pill {
+  font-size: 12px;
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: #e9f1dd;
+  color: #2f6034;
+  font-weight: 700;
+}
+
 .auth-section {
   margin-top: 28px;
 }
@@ -675,6 +772,11 @@ select {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .category-grid,
+  .spotlight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero-metrics {
     grid-template-columns: 1fr;
   }
@@ -722,6 +824,11 @@ select {
 
 @media (max-width: 520px) {
   .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-grid,
+  .spotlight-grid {
     grid-template-columns: 1fr;
   }
 
