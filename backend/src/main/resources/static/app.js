@@ -425,13 +425,26 @@ async function syncAuthState() {
 }
 
 async function loadProducts() {
-  const result = await fetch('/api/products').then(async (response) => {
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.message || 'Khong the tai san pham');
-    return data;
-  });
+  let products = [];
 
-  state.products = result.products || [];
+  try {
+    const result = await fetch('/api/products').then(async (response) => {
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.message || 'Khong the tai san pham');
+      return data;
+    });
+    products = result.products || [];
+  } catch {
+    // Fallback for static hosting (GitHub Pages) where /api is unavailable.
+    const fallback = await fetch('data/products.json').then(async (response) => {
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error('Khong the tai du lieu san pham tinh.');
+      return data;
+    });
+    products = fallback.products || [];
+  }
+
+  state.products = products;
   renderProducts();
   renderSpotlightProducts();
 }
